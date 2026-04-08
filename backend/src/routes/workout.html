@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GayoFitness – Workouts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  .phone {
+    background: #fff;
+    width: 390px;
+    border-radius: 36px;
+    border: 0.5px solid #E5E7EB;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 850px;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px 6px;
+  }
+  .status-time { font-size: 14px; font-weight: 600; color: #111827; }
+  .status-icons { display: flex; gap: 8px; align-items: center; }
+
+  /* Header */
+  .header {
+    display: flex;
+    gap: 8px;
+    padding: 6px 14px 10px;
+    align-items: center;
+  }
+  .search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F9FAFB;
+    border-radius: 12px;
+    padding: 9px 12px;
+    border: 0.5px solid #E5E7EB;
+  }
+  .search-bar input {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    flex: 1;
+    min-width: 0;
+    font-family: inherit;
+  }
+  .icon-btn {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: #CC2929;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Filters */
+  .filters-row {
+    display: flex;
+    gap: 8px;
+    padding: 0 14px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filters-row::-webkit-scrollbar { display: none; }
+  .pill {
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    transition: background 0.15s, color 0.15s;
+  }
+  .pill.active { background: #CC2929; color: #fff; border: none; }
+  .pill.inactive { background: #F3F4F6; color: #6B7280; border: 0.5px solid #E5E7EB; }
+  .pill-count {
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .pill.active .pill-count { background: rgba(255,255,255,0.25); color: #fff; }
+  .pill.inactive .pill-count { background: #E5E7EB; color: #9CA3AF; }
+
+  /* List */
+  .list {
+    flex: 1;
+    padding: 0 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  /* Card */
+  .card {
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    border: 0.5px solid #E5E7EB;
+  }
+  .img-box {
+    position: relative;
+    height: 178px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+  }
+  .badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .fav-btn {
+    position: absolute;
+    top: 10px; left: 10px;
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    transition: transform 0.1s;
+  }
+  .fav-btn:active { transform: scale(0.88); }
+  .card-body { padding: 14px; }
+  .card-title { font-size: 17px; font-weight: 600; color: #111827; margin-bottom: 3px; }
+  .card-desc { font-size: 13px; color: #6B7280; margin-bottom: 10px; line-height: 1.4; }
+  .meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .meta-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #6B7280; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { padding: 4px 10px; border-radius: 7px; font-size: 12px; font-weight: 500; }
+  .tag-red    { background: #FEE2E2; color: #991B1B; }
+  .tag-blue   { background: #DBEAFE; color: #1E40AF; }
+  .tag-green  { background: #D1FAE5; color: #065F46; }
+  .tag-purple { background: #EDE9FE; color: #5B21B6; }
+  .tag-amber  { background: #FEF3C7; color: #92400E; }
+
+  /* Bottom nav */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 10px 16px;
+    border-top: 0.5px solid #E5E7EB;
+    background: #fff;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    min-width: 48px;
+  }
+  .nav-label { font-size: 10px; }
+  .nav-dot { width: 4px; height: 4px; background: #CC2929; border-radius: 50%; }
+  .no-results { text-align: center; color: #9CA3AF; font-size: 14px; padding: 40px 0; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+ 
+  
+
+  <!-- Search Header -->
+  <div class="header">
+    <div class="search-bar">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="search" type="text" placeholder="Buscar entrenamientos..." oninput="render()"/>
+    </div>
+    
+    <button class="icon-btn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <circle cx="4" cy="6" r="1.5" fill="#fff" stroke="none"/>
+        <circle cx="4" cy="12" r="1.5" fill="#fff" stroke="none"/>
+        <circle cx="4" cy="18" r="1.5" fill="#fff" stroke="none"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-row" id="filters"></div>
+
+  <!-- Workout List -->
+  <div class="list" id="list"></div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav" id="nav"></div>
+
+</div>
+
+<script>
+const workouts = [
+  { id:1, title:"Entrenamiento de Fuerza Total", desc:"Rutina completa de cuerpo entero para desarrollar músculo y fuerza", level:"Intermedio", levelColor:"#F59E0B", time:"45 min", kcal:"350 kcal", exercises:"8 ejercicios", tags:[{label:"Mancuernas",color:"red"},{label:"Barra",color:"red"}], bg:"#2c3e50", icon:"" },
+  { id:2, title:"HIIT Cardio Explosivo", desc:"Intervalos de alta intensidad para quemar grasa y mejorar resistencia", level:"Avanzado", levelColor:"#CC2929", time:"30 min", kcal:"420 kcal", exercises:"12 ejercicios", tags:[{label:"Sin equipo",color:"green"},{label:"Cardio",color:"blue"}], bg:"#1a1a2e", icon:"" },
+  { id:3, title:"Yoga para Principiantes", desc:"Sesión suave de yoga para ganar flexibilidad y reducir el estrés", level:"Principiante", levelColor:"#10B981", time:"40 min", kcal:"150 kcal", exercises:"15 ejercicios", tags:[{label:"Esterilla",color:"green"},{label:"Flexibilidad",color:"purple"}], bg:"#0f4c75", icon:"" },
+  { id:4, title:"Piernas y Glúteos Pro", desc:"Trabajo intenso de tren inferior con máquinas y peso libre", level:"Avanzado", levelColor:"#CC2929", time:"55 min", kcal:"480 kcal", exercises:"10 ejercicios", tags:[{label:"Máquinas",color:"blue"},{label:"Pesas",color:"red"}], bg:"#2d1b69", icon:"" },
+  { id:5, title:"Core y Abdomen", desc:"Fortalece tu zona media con ejercicios funcionales y de estabilidad", level:"Intermedio", levelColor:"#F59E0B", time:"25 min", kcal:"200 kcal", exercises:"9 ejercicios", tags:[{label:"Sin equipo",color:"green"},{label:"Banda elástica",color:"amber"}], bg:"#1b4332", icon:"" },
+  { id:6, title:"Cardio Suave Matutino", desc:"Rutina ligera para activar el cuerpo al despertar sin impacto", level:"Principiante", levelColor:"#10B981", time:"20 min", kcal:"120 kcal", exercises:"6 ejercicios", tags:[{label:"Sin equipo",color:"green"}], bg:"#7c3aed", icon:"" },
+  { id:7, title:"Espalda y Bíceps", desc:"Sesión focalizada en la musculatura posterior y brazos", level:"Intermedio", levelColor:"#F59E0B", time:"50 min", kcal:"310 kcal", exercises:"11 ejercicios", tags:[{label:"Mancuernas",color:"red"},{label:"Barra",color:"red"},{label:"Polea",color:"blue"}], bg:"#134e4a", icon:"" },
+];
+
+const filters = [
+  {label:"Todos",count:24},
+  {label:"Principiante",count:8},
+  {label:"Fuerza",count:6},
+  {label:"Cardio",count:5},
+  {label:"Avanzado",count:4},
+];
+
+const navItems = [
+  { label:"Dashboard", active: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CC2929" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`, inactive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>` },
+  { label:"Workouts", active: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CC2929" stroke-width="1.8"><path d="M6 4v16M18 4v16M6 8h12M6 16h12M4 6h4M16 6h4M4 18h4M16 18h4"/></svg>`, inactive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8"><path d="M6 4v16M18 4v16M6 8h12M6 16h12M4 6h4M16 6h4M4 18h4M16 18h4"/></svg>` },
+  { label:"Recipes", active: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CC2929" stroke-width="1.8"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>`, inactive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>` },
+  { label:"Trainer", active: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CC2929" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, inactive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>` },
+  { label:"Store", active: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CC2929" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`, inactive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>` },
+];
+
+let activeFilter = 0;
+let activeNav = 1;
+let favs = new Set([2, 5]);
+
+function heartSVG(filled) {
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="${filled ? '#CC2929' : 'none'}" stroke="#CC2929" stroke-width="2">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>`;
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = workouts.filter(w => w.title.toLowerCase().includes(q));
+
+  // Filters
+  document.getElementById('filters').innerHTML = filters.map((f, i) =>
+    `<button class="pill ${activeFilter === i ? 'active' : 'inactive'}" onclick="setFilter(${i})">
+      ${f.label}<span class="pill-count">${f.count}</span>
+    </button>`
+  ).join('');
+
+  // Workout list
+  if (filtered.length === 0) {
+    document.getElementById('list').innerHTML = `<p class="no-results">No se encontraron entrenamientos</p>`;
+  } else {
+    document.getElementById('list').innerHTML = filtered.map(w => `
+      <div class="card">
+        <div class="img-box" style="background:${w.bg}">
+          <span>${w.icon}</span>
+          <div class="badge" style="background:${w.levelColor}">${w.level}</div>
+          <button class="fav-btn" onclick="toggleFav(${w.id})">${heartSVG(favs.has(w.id))}</button>
+        </div>
+        <div class="card-body">
+          <p class="card-title">${w.title}</p>
+          <p class="card-desc">${w.desc}</p>
+          <div class="meta">
+            <span class="meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${w.time}
+            </span>
+            <span class="meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              ${w.kcal}
+            </span>
+            <span class="meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              ${w.exercises}
+            </span>
+          </div>
+          <div class="tags">
+            ${w.tags.map(t => `<span class="tag tag-${t.color}">${t.label}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Bottom nav
+  document.getElementById('nav').innerHTML = navItems.map((item, i) => {
+    const isActive = activeNav === i;
+    return `<div class="nav-item" onclick="setNav(${i})">
+      ${isActive ? item.active : item.inactive}
+      <span class="nav-label" style="color:${isActive ? '#CC2929' : '#9CA3AF'}">${item.label}</span>
+      ${isActive ? '<div class="nav-dot"></div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function setFilter(i) { activeFilter = i; render(); }
+function setNav(i) { activeNav = i; render(); }
+function toggleFav(id) {
+  favs.has(id) ? favs.delete(id) : favs.add(id);
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
