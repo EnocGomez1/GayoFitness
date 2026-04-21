@@ -3,28 +3,30 @@ const router = express.Router();
 
 // CONTROLADORES
 const { register, login } = require('../controllers/auth.controller');
-
-// ⚠️ IMPORTANTE: nombre EXACTO como tu archivo
 const { getRecommendations } = require('../controllers/recomendations.controller');
 
 // MIDDLEWARE
 const { authMiddleware } = require('../middleware/auth');
 
-// RUTAS BASE
+// RUTAS
 const usersRoutes = require('./users.js');
 const dietsRoutes = require('./diets.js');
 const productsRoutes = require('./products.js');
+const statsRoutes = require('./stats.js');
 
+//Rutas base
 router.use('/usuarios', usersRoutes);
 router.use('/dietas', dietsRoutes);
-router.use('/productos', productsRoutes);
+router.use('/products', productsRoutes);
+
 
 // AUTH
 router.post('/auth/register', register);
 router.post('/auth/login', login);
 
-// 🔥 ESTA ES LA CLAVE
+// RECOMMENDATIONS
 router.get('/recommendations', authMiddleware, getRecommendations);
+router.use('/stats', authMiddleware, statsRoutes);
 
 // TEST
 router.get('/', (req, res) => {

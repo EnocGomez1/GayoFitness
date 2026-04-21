@@ -7,7 +7,7 @@ const app = express();
 
 // Middlewares
 app.use(cors());
-app.use(express.json());
+app.use(express.json());  
 
 // 🔌 MongoDB Atlas (NUEVO)
 mongoose.connect(process.env.MONGO_URI)

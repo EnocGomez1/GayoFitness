@@ -32,7 +32,6 @@ export default function TrainerScreen() {
 
   const scrollRef = useRef<ScrollView>(null);
 
-  // ✨ EFECTO TYPING IA
   const typeMessage = async (text: string) => {
     let current = '';
     setMessages(prev => [...prev, { role: 'ai', text: '' }]);
@@ -48,7 +47,6 @@ export default function TrainerScreen() {
     }
   };
 
-  // 📤 ENVIAR MENSAJE
   const handleChatSend = async () => {
     const text = chatInput.trim();
     if (!text || loading) return;
@@ -80,7 +78,7 @@ export default function TrainerScreen() {
     <ThemedView style={styles.screen}>
 
       {/* HEADER */}
-      <ThemedView style={styles.header}>
+      <View style={styles.header}>
         <View style={styles.headerRow}>
           <Image
             source={require('../../assets/images/logo_GayoFitness.png')}
@@ -93,7 +91,7 @@ export default function TrainerScreen() {
         <ThemedText style={styles.headerSubtitle}>
           Tu coach fitness personalizado
         </ThemedText>
-      </ThemedView>
+      </View>
 
       {/* CHAT */}
       <ScrollView
@@ -110,7 +108,8 @@ export default function TrainerScreen() {
             key={i}
             style={msg.role === 'user' ? styles.userRow : styles.botRow}
           >
-            <ThemedView
+            {/* 🔥 View normal en lugar de ThemedView */}
+            <View
               style={[
                 styles.bubble,
                 msg.role === 'user' ? styles.userBubble : styles.botBubble,
@@ -121,15 +120,15 @@ export default function TrainerScreen() {
               >
                 {msg.text}
               </ThemedText>
-            </ThemedView>
+            </View>
           </View>
         ))}
 
         {loading && (
           <View style={styles.botRow}>
-            <ThemedView style={[styles.bubble, styles.botBubble]}>
-              <ActivityIndicator />
-            </ThemedView>
+            <View style={[styles.bubble, styles.botBubble]}>
+              <ActivityIndicator color="#e26a07" />
+            </View>
           </View>
         )}
       </ScrollView>
@@ -156,7 +155,10 @@ export default function TrainerScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#f5f6f8',
+    backgroundColor: '#f0f2f5',
+    height: '100vh' as any,
+    display: 'flex' as any,
+    flexDirection: 'column' as any,
   },
   header: {
     paddingTop: 18,
@@ -185,10 +187,11 @@ const styles = StyleSheet.create({
   },
   chatArea: {
     flex: 1,
+    overflow: 'scroll' as any,
   },
   chatContent: {
     padding: 14,
-    paddingBottom: 24,
+    paddingBottom: 160,
   },
   botRow: {
     alignItems: 'flex-start',
@@ -204,7 +207,9 @@ const styles = StyleSheet.create({
     maxWidth: '85%',
   },
   botBubble: {
-    backgroundColor: '#eceff3',
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
   },
   userBubble: {
     backgroundColor: '#ef4444',
@@ -223,6 +228,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderTopWidth: 1,
     borderTopColor: '#e6e6e6',
+    position: 'absolute' as any,
+    bottom: 70,
+    left: 0,
+    right: 0,
   },
   chatInput: {
     flex: 1,

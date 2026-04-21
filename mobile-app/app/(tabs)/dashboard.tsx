@@ -5,10 +5,12 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Animated } from 'react-native';
+
 
 import {
   getLocalUser,
@@ -46,7 +48,7 @@ function ProgressRing({ percent }: { percent: number }) {
 
 // 🔴 WEEKLY BARS DINÁMICO
 function WeeklyBars({ data }: { data: number[] }) {
-  const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
   const values = data.length ? data : [0, 0, 0, 0, 0, 0, 0];
 
   const maxVal = Math.max(...values, 1);
@@ -60,21 +62,45 @@ function WeeklyBars({ data }: { data: number[] }) {
           8,
           Math.round((values[i] / maxVal) * BAR_MAX_HEIGHT)
         );
+
         const isToday = i === todayIndex;
+
+        // 🔥 ANIMACIÓN
+        const animatedHeight = useRef(new Animated.Value(0)).current;
+
+        useEffect(() => {
+          Animated.timing(animatedHeight, {
+            toValue: barHeight,
+            duration: 600,
+            useNativeDriver: false,
+          }).start();
+        }, [barHeight]);
 
         return (
           <View key={i} style={styles.barItem}>
+            
+            {/* 🔥 VALOR ARRIBA */}
+            <ThemedText style={styles.barValue}>
+              {values[i]}%
+            </ThemedText>
+
             <View style={styles.barTrack}>
-              <View
+              <Animated.View
                 style={[
                   styles.barFill,
-                  { height: barHeight },
-                  isToday ? styles.barActive : styles.barInactive,
+                  {
+                    height: animatedHeight,
+                    backgroundColor: isToday ? '#ef4444' : '#94a3b8',
+                  },
                 ]}
               />
             </View>
+
             <ThemedText
-              style={[styles.barLabel, isToday && styles.barLabelActive]}
+              style={[
+                styles.barLabel,
+                isToday && styles.barLabelActive,
+              ]}
             >
               {day}
             </ThemedText>
@@ -263,9 +289,15 @@ export default function Dashboard() {
 }
 
 const styles = StyleSheet.create({
+  barValue: {
+  fontSize: 12,
+  marginBottom: 4,
+  color: '#374151',
+  },
   screen: {
     flex: 1,
     backgroundColor: '#f2f4f7',
+    minHeight: '100vh',
   },
   header: {
     paddingHorizontal: 16,
@@ -283,7 +315,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-    paddingBottom: 40,
+    paddingBottom: 20,
     gap: 14,
   },
 
@@ -350,7 +382,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    height: 150,
+    height: 180,
     marginTop: 8,
     paddingHorizontal: 4,
   },
