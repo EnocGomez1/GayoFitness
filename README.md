@@ -1,10 +1,10 @@
-# 🐔 GayoFitness ULTRA EXTREMA DERECHA
+# 🐔 GalhoFitness ULTRA EXTREMA DERECHA
 
 [![Estado](https://img.shields.io/badge/Estado-Producción-brightgreen)](https://github.com/) 
 [![Lenguaje](https://img.shields.io/badge/Lenguajes-HTML%20|%20CSS%20|%20JS-orange)](https://developer.mozilla.org/)
 [![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)](LICENSE)
 
-**GayoFitness ULTRA EXTREMA** es una **app móvil y web de fitness**, estilo red social, que integra entrenamiento, nutrición, IA personalizada y e-commerce. Diseñada para usuarios que quieren mejorar su forma física de manera interactiva y divertida.  
+**GalhoFitness ULTRA EXTREMA** es una **app móvil y web de fitness**, estilo red social, que integra entrenamiento, nutrición, IA personalizada y e-commerce. Diseñada para usuarios que quieren mejorar su forma física de manera interactiva y divertida.  
 
 ---
 
