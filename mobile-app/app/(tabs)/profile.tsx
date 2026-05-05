@@ -199,42 +199,38 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  inner:      { padding: 20, paddingTop: 52, gap: 4 },
-  title:      { fontSize: 24, fontWeight: '700', marginBottom: 2 },
-  email:      { color: '#6b7280', marginBottom: 16, fontSize: 13 },
-  label:      { fontSize: 13, color: '#6b7280', marginBottom: 4, marginTop: 8 },
-  row:        { flexDirection: 'row', gap: 12 },
-  half:       { flex: 1 },
+  inner: { padding: 20, paddingTop: 52, gap: 4 },
+  title: { fontSize: 26, fontWeight: '800', color: '#111827', marginBottom: 2 },
+  email: { color: '#9ca3af', marginBottom: 16, fontSize: 13, fontWeight: '500' },
+  label: { fontSize: 13, fontWeight: '600', color: '#374151', marginBottom: 4, marginTop: 8 },
+  row: { flexDirection: 'row', gap: 12 },
+  half: { flex: 1 },
   input: {
-    backgroundColor: '#fff', borderRadius: 10,
-    paddingHorizontal: 14, paddingVertical: 11,
-    borderWidth: 1, borderColor: '#e5e7eb', fontSize: 15,
+    backgroundColor: '#fff', borderRadius: 12,
+    paddingHorizontal: 14, paddingVertical: 12,
+    borderWidth: 1, borderColor: '#e5e7eb', fontSize: 15, color: '#111827',
   },
-  goals:      { flexDirection: 'row', gap: 8, marginTop: 4 },
-  goalBtn:    { flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#fff',
-                borderWidth: 1, borderColor: '#e5e7eb', alignItems: 'center' },
+  goals: { flexDirection: 'row', gap: 8, marginTop: 4 },
+  goalBtn: { flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#fff',
+    borderWidth: 1, borderColor: '#e5e7eb', alignItems: 'center' },
   goalActive: { backgroundColor: '#ef4444', borderColor: '#ef4444' },
-  goalOn:     { color: '#fff', fontWeight: '700', fontSize: 12 },
-  goalOff:    { color: '#374151', fontSize: 12 },
+  goalOn: { color: '#fff', fontWeight: '700', fontSize: 12 },
+  goalOff: { color: '#374151', fontSize: 12, fontWeight: '500' },
   btn: {
     backgroundColor: '#ef4444', borderRadius: 12,
     padding: 15, alignItems: 'center', marginTop: 16,
   },
-  btnText:    { color: '#fff', fontWeight: '700', fontSize: 16 },
-  logout:     { alignItems: 'center', paddingVertical: 14 },
-  logoutText: { color: '#6b7280', fontSize: 14 },
-
-  separator:  { height: 1, backgroundColor: '#e5e7eb', marginVertical: 4 },
-
+  btnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  logout: { alignItems: 'center', paddingVertical: 14 },
+  logoutText: { color: '#6b7280', fontSize: 14, fontWeight: '600' },
+  separator: { height: 1, backgroundColor: '#e5e7eb', marginVertical: 4 },
   deleteBtn: {
     borderWidth: 1, borderColor: '#fca5a5',
     borderRadius: 12, padding: 14,
     alignItems: 'center', backgroundColor: '#fff5f5',
   },
-  deleteText: { color: '#dc2626', fontWeight: '600', fontSize: 15 },
+  deleteText: { color: '#dc2626', fontWeight: '700', fontSize: 15 },
   deleteHint: { textAlign: 'center', color: '#9ca3af', fontSize: 12, marginTop: 6, marginBottom: 24 },
-
-  // Modal
   modalOverlay: {
     flex: 1, backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center', alignItems: 'center', padding: 24,
@@ -244,17 +240,14 @@ const styles = StyleSheet.create({
     width: '100%', shadowColor: '#000', shadowOpacity: 0.2,
     shadowRadius: 10, elevation: 10,
   },
-  modalTitle:   { fontSize: 18, fontWeight: '700', marginBottom: 10, color: '#111827' },
-  modalBody:    { fontSize: 14, color: '#6b7280', lineHeight: 22, marginBottom: 24 },
+  modalTitle: { fontSize: 18, fontWeight: '800', marginBottom: 10, color: '#111827' },
+  modalBody: { fontSize: 14, color: '#6b7280', lineHeight: 22, marginBottom: 24 },
   modalButtons: { flexDirection: 'row', gap: 12 },
   modalCancel: {
     flex: 1, padding: 13, borderRadius: 10,
     borderWidth: 1, borderColor: '#e5e7eb', alignItems: 'center',
   },
   modalCancelText: { color: '#374151', fontWeight: '600' },
-  modalDelete: {
-    flex: 1, padding: 13, borderRadius: 10,
-    backgroundColor: '#dc2626', alignItems: 'center',
-  },
+  modalDelete: { flex: 1, padding: 13, borderRadius: 10, backgroundColor: '#dc2626', alignItems: 'center' },
   modalDeleteText: { color: '#fff', fontWeight: '700' },
 });
