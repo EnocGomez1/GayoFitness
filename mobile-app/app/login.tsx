@@ -73,7 +73,8 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={styles.inner}>
-        <Image source={require('../assets/images/logo_GayoFitness.png')} style={styles.logo} />
+        <Image source={require('@/assets/images/logo_GayoFitness.png')} style={styles.logo} />
+<ThemedText style={styles.title}>GayoFitness</ThemedText>
         <ThemedText style={styles.title}>
           {mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta'}
         </ThemedText>
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#f2f4f7' },
   inner: { padding: 24, paddingTop: 80, gap: 12 },
   logo: { width: 100, height: 100, alignSelf: 'center', marginBottom: 8, resizeMode: 'contain', },
-  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 12 },
+  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 12, color: '#f59e0b' },
   label: { fontSize: 13, color: '#6b7280' },
   row: { flexDirection: 'row', gap: 8 },
   half: { flex: 1 },
