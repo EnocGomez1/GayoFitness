@@ -1,6 +1,6 @@
 import {
   View, TextInput, TouchableOpacity,
-  StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Text,
+  StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Text, Image,
 } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
@@ -9,15 +9,15 @@ import { loginUser, registerUser } from '@/services/api';
 
 const GOALS = [
   { value: 'ganar_musculo', label: '💪 Músculo' },
-  { value: 'perdida_peso',  label: '🏃 Perder peso' },
-  { value: 'resistencia',   label: '🏅 Resistencia' },
+  { value: 'perdida_peso', label: '🏃 Perder peso' },
+  { value: 'resistencia', label: '🏅 Resistencia' },
 ];
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [mode, setMode]       = useState<'login' | 'register'>('login');
+  const [mode, setMode] = useState<'login' | 'register'>('login');
   const [loading, setLoading] = useState(false);
-  const [form, setForm]       = useState({
+  const [form, setForm] = useState({
     name: '', email: '', password: '',
     peso: '', altura: '', edad: '', goal: 'ganar_musculo',
   });
@@ -44,13 +44,13 @@ export default function LoginScreen() {
       } else {
         if (!form.name) return setErrors({ general: 'El nombre es obligatorio' });
         await registerUser({
-          name:     form.name,
-          email:    form.email,
+          name: form.name,
+          email: form.email,
           password: form.password,
-          peso:     form.peso   ? Number(form.peso)   : undefined,
-          altura:   form.altura ? Number(form.altura) : undefined,
-          edad:     form.edad   ? Number(form.edad)   : undefined,
-          goal:     form.goal,
+          peso: form.peso ? Number(form.peso) : undefined,
+          altura: form.altura ? Number(form.altura) : undefined,
+          edad: form.edad ? Number(form.edad) : undefined,
+          goal: form.goal,
         });
       }
       router.replace('/(tabs)/dashboard');
@@ -73,7 +73,8 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={styles.inner}>
-        <ThemedText style={styles.logo}>🏋️ GayoFitness</ThemedText>
+        <Image source={require('@/assets/images/logo_GayoFitness.png')} style={styles.logo} />
+<ThemedText style={styles.title}>GayoFitness</ThemedText>
         <ThemedText style={styles.title}>
           {mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta'}
         </ThemedText>
@@ -153,12 +154,12 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#f2f4f7' },
-  inner:  { padding: 24, paddingTop: 80, gap: 12 },
-  logo:   { fontSize: 34, textAlign: 'center', marginBottom: 4 },
-  title:  { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 12 },
-  label:  { fontSize: 13, color: '#6b7280' },
-  row:    { flexDirection: 'row', gap: 8 },
-  half:   { flex: 1 },
+  inner: { padding: 24, paddingTop: 80, gap: 12 },
+  logo: { width: 100, height: 100, alignSelf: 'center', marginBottom: 8, resizeMode: 'contain', },
+  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 12, color: '#f59e0b' },
+  label: { fontSize: 13, color: '#6b7280' },
+  row: { flexDirection: 'row', gap: 8 },
+  half: { flex: 1 },
 
   input: {
     backgroundColor: '#fff', borderRadius: 12,
@@ -175,17 +176,19 @@ const styles = StyleSheet.create({
     marginTop: -6,
   },
 
-  goals:      { flexDirection: 'row', gap: 8 },
-  goalBtn:    { flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#fff',
-                borderWidth: 1, borderColor: '#e5e7eb', alignItems: 'center' },
+  goals: { flexDirection: 'row', gap: 8 },
+  goalBtn: {
+    flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#fff',
+    borderWidth: 1, borderColor: '#e5e7eb', alignItems: 'center'
+  },
   goalActive: { backgroundColor: '#ef4444', borderColor: '#ef4444' },
-  goalOn:     { color: '#fff', fontWeight: '700', fontSize: 12 },
-  goalOff:    { color: '#374151', fontSize: 12 },
+  goalOn: { color: '#fff', fontWeight: '700', fontSize: 12 },
+  goalOff: { color: '#374151', fontSize: 12 },
 
   btn: {
     backgroundColor: '#ef4444', borderRadius: 14,
     padding: 16, alignItems: 'center', marginTop: 4,
   },
-  btnText:  { color: '#fff', fontWeight: '700', fontSize: 16 },
-  toggle:   { textAlign: 'center', color: '#6b7280', marginTop: 12, fontSize: 14 },
+  btnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  toggle: { textAlign: 'center', color: '#6b7280', marginTop: 12, fontSize: 14 },
 });

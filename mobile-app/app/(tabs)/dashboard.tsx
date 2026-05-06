@@ -327,47 +327,46 @@ export default function Dashboard() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#f2f4f7' },
-  header: { paddingHorizontal: 16, paddingTop: 20, paddingBottom: 8 },
-  greeting: { fontSize: 13, color: '#6b7280' },
-  name: { fontSize: 22, fontWeight: '600', marginTop: 2 },
+  header: { paddingHorizontal: 20, paddingTop: 24, paddingBottom: 10, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
+  greeting: { fontSize: 14, color: '#9ca3af', fontWeight: '500' },
+  name: { fontSize: 24, fontWeight: '700', marginTop: 2, color: '#111827' },
   content: { padding: 16, paddingBottom: 20, gap: 14 },
 
   card: {
     backgroundColor: '#ffffff', borderRadius: 16, padding: 18,
     shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
   },
-  cardTitle: { fontSize: 20, fontWeight: '600', marginBottom: 14 },
+  cardTitle: { fontSize: 17, fontWeight: '700', marginBottom: 14, color: '#111827' },
 
   rowBetween: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
 
-  // Botón registrar pasos
   stepsBtn: {
     backgroundColor: '#fef2f2', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6,
     borderWidth: 1, borderColor: '#fca5a5',
   },
-  stepsBtnText: { color: '#ef4444', fontSize: 12, fontWeight: '600' },
+  stepsBtnText: { color: '#ef4444', fontSize: 12, fontWeight: '700' },
 
   // Anillo
-  ringPercent: { fontSize: 28, fontWeight: '700', color: '#ef4444' },
-  ringLabel: { fontSize: 15, color: '#94a3b8', marginTop: 2 },
+  ringPercent: { fontSize: 28, fontWeight: '800', color: '#ef4444' },
+  ringLabel: { fontSize: 12, color: '#9ca3af', marginTop: 2, fontWeight: '500' },
 
   // Stats
   statsRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4 },
-  statBox: { flex: 1, alignItems: 'center', paddingVertical: 10, backgroundColor: '#f8fafc', borderRadius: 12 },
+  statBox: { flex: 1, alignItems: 'center', paddingVertical: 12, backgroundColor: '#f8fafc', borderRadius: 12 },
   statDivider: { width: 8 },
-  statIcon: { fontSize: 23, marginBottom: 4 },
-  statNumber: { fontSize: 20, fontWeight: '600' },
-  statLabel: { fontSize: 18, color: '#6b7280', marginTop: 2 },
+  statIcon: { fontSize: 20, marginBottom: 4 },
+  statNumber: { fontSize: 18, fontWeight: '700', color: '#111827' },
+  statLabel: { fontSize: 11, color: '#6b7280', marginTop: 2, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.5 },
 
   // Banner calorías
   caloriasBanner: {
     marginTop: 12, backgroundColor: '#fff7ed', borderRadius: 10,
     padding: 10, alignItems: 'center', borderWidth: 1, borderColor: '#fed7aa',
   },
-  caloriasBannerText: { color: '#ea580c', fontSize: 13, fontWeight: '600' },
+  caloriasBannerText: { color: '#ea580c', fontSize: 13, fontWeight: '700' },
 
   // Barras semanales
-  barValue: { fontSize: 12, marginBottom: 4, color: '#374151' },
+  barValue: { fontSize: 11, marginBottom: 4, color: '#6b7280', fontWeight: '600' },
   barContainer: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end',
     height: 180, marginTop: 8, paddingHorizontal: 4,
@@ -380,25 +379,25 @@ const styles = StyleSheet.create({
   barFill: { width: '100%', borderRadius: 18 },
   barActive: { backgroundColor: '#ef4444' },
   barInactive: { backgroundColor: '#cbd5e1' },
-  barLabel: { fontSize: 15, color: '#9ca3af' },
-  barLabelActive: { color: '#ef4444', fontWeight: '600' },
+  barLabel: { fontSize: 12, color: '#9ca3af', fontWeight: '500' },
+  barLabelActive: { color: '#ef4444', fontWeight: '700' },
 
   // Acceso rápido
-  quickGrid: { flexDirection: 'row', gap: 20 },
-  quickCard: { flex: 1, backgroundColor: '#f8fafc', borderRadius: 12, padding: 40, alignItems: 'center', gap: 6 },
-  quickIcon: { fontSize: 30 },
-  quickText: { fontSize: 15, textAlign: 'center', color: '#6b7280' },
+  quickGrid: { flexDirection: 'row', gap: 10 },
+  quickCard: { flex: 1, backgroundColor: '#f8fafc', borderRadius: 12, padding: 16, alignItems: 'center', gap: 8, borderWidth: 1, borderColor: '#e5e7eb' },
+  quickIcon: { fontSize: 28 },
+  quickText: { fontSize: 12, textAlign: 'center', color: '#374151', fontWeight: '600' },
 
   // Recomendaciones
-  recommendCard: { width: 280, marginRight: 12 },
+  recommendCard: { width: 180, marginRight: 12 },
   recommendImagePlaceholder: {
-    height: 180, borderRadius: 12, backgroundColor: '#f1f5f9',
+    height: 120, borderRadius: 12, backgroundColor: '#f1f5f9',
     alignItems: 'center', justifyContent: 'center', marginBottom: 8,
   },
   recommendEmoji: { fontSize: 32 },
-  recommendType: { fontSize: 18, color: '#ef4444', marginBottom: 2 },
-  recommendTitle: { fontSize: 16, fontWeight: '600', marginBottom: 2 },
-  recommendKcal: { fontSize: 14, color: '#6b7280' },
+  recommendType: { fontSize: 11, color: '#ef4444', marginBottom: 2, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5 },
+  recommendTitle: { fontSize: 13, fontWeight: '700', marginBottom: 2, color: '#111827' },
+  recommendKcal: { fontSize: 12, color: '#6b7280', fontWeight: '500' },
 
   // Modal
   modalOverlay: {
